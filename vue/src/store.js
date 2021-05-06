@@ -27,6 +27,10 @@ export default new Vuex.Store({
     DELETE_ITEM_FROM_LIST(state, itemTitle) {
       const elementIndex = state.items.findIndex(item => item.title === itemTitle);
       state.items.splice(elementIndex, 1);
+    },
+    // it's better to use unique id's for app items
+    UPDATE_ITEM(state, { editableForm, index }) {
+      Vue.set(state.items, index, editableForm);
     }
   },
   actions: {
@@ -36,6 +40,9 @@ export default new Vuex.Store({
     DELETE_ITEM({ commit }, itemTitle) {
       // unique title is using
       commit('DELETE_ITEM_FROM_LIST', itemTitle);
+    },
+    EDIT_ITEM({commit}, payload) {
+      commit('UPDATE_ITEM', payload);
     }
   }
 })
